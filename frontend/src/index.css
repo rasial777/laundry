@@ -11,6 +11,10 @@
         margin-right: 12px !important;
     }
 
+    .app-header-logo {
+        display: none !important;
+    }
+
     .app-header-user {
         display: none !important;
     }

@@ -26,4 +26,4 @@ server:
   port: 8080
 
 app:
-  upload-dir: ./uploads
+  upload-dir: ./data/uploads

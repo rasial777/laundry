@@ -128,7 +128,6 @@ function SettingsPage() {
     };
 
     const userColumns = [
-        { title: 'ID', dataIndex: 'id', width: 60 },
         { title: 'Логин', dataIndex: 'username' },
         {
             title: 'Роль',
