@@ -1,15 +1,19 @@
 package com.laundry.laundryapp;
 
-import com.laundry.laundryapp.entity.LaundryItem;
-import com.laundry.laundryapp.repository.LaundryItemRepository;
+import com.laundry.laundryapp.entity.Laundry;
+import com.laundry.laundryapp.entity.Role;
+import com.laundry.laundryapp.entity.User;
+import com.laundry.laundryapp.repository.LaundryRepository;
+import com.laundry.laundryapp.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.math.BigDecimal;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
+@EnableScheduling
 public class LaundryApplication {
 
     public static void main(String[] args) {
@@ -17,11 +21,17 @@ public class LaundryApplication {
     }
 
     @Bean
-    CommandLineRunner initData(LaundryItemRepository repository) {
+    CommandLineRunner initData(UserRepository userRepository,
+                               LaundryRepository laundryRepository,
+                               PasswordEncoder passwordEncoder) {
         return args -> {
-            repository.save(new LaundryItem("Рубашка", new BigDecimal("150.00")));
-            repository.save(new LaundryItem("Брюки", new BigDecimal("200.00")));
-            repository.save(new LaundryItem("Пальто", new BigDecimal("350.00")));
+            if (!userRepository.existsByUsername("admin")) {
+                userRepository.save(new User("admin", passwordEncoder.encode("admin"), Role.ADMIN));
+            }
+            if (laundryRepository.count() == 0) {
+                laundryRepository.save(new Laundry("Прачечная №1"));
+                laundryRepository.save(new Laundry("Прачечная №2"));
+            }
         };
     }
 }

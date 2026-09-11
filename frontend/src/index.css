@@ -1,0 +1,21 @@
+@media (max-width: 768px) {
+    .app-header {
+        padding: 0 12px !important;
+    }
+
+    .app-content {
+        padding: 16px 12px !important;
+    }
+
+    .app-header-logo {
+        margin-right: 12px !important;
+    }
+
+    .app-header-user {
+        display: none !important;
+    }
+
+    .app-filter {
+        width: 100% !important;
+    }
+}
